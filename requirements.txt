@@ -1,0 +1,6 @@
+pytest==7.1.2
+selenium==4.2.0
+webdriver-manager
+allure-pytest==2.9.45
+pytest-rerunfailures
+pytest-html-reporter
