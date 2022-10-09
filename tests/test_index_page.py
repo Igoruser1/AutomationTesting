@@ -16,5 +16,14 @@ class TestAuthorization:
         driver = self.driver
         step = Authorization(driver)
         step.enter_correct_username()
+        step.enter_correct_password()
+        step.clik_login_button()
+
+
+
+
+
+
+
 
 
