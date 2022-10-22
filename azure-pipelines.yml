@@ -7,15 +7,11 @@ parameters:
   - smoke
   - ui
 
-
-
 trigger:
 - master
 
 pool:
    vmImage: 'windows-latest'
-
-
 
 schedules:
 - cron: "0 0 * * *"
@@ -24,15 +20,12 @@ schedules:
     include:
     - master
 
+steps:
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.9'
     addToPath: true
     architecture: 'x64'
-
-variables:
-  group: $(credgroup)
-steps:
 
 - task: replacetokens@3
   displayName: 'Replace tokens'
