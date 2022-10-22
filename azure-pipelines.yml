@@ -1,3 +1,14 @@
+parameters:
+- name: subscription
+  displayName: scopes
+  type: string
+  default: smoke
+  values:
+  - smoke
+  - ui
+
+
+
 trigger:
 - master
 
@@ -19,14 +30,27 @@ steps:
       pip install -r requirements.txt
   displayName: 'Install dependencies'
 
+#- task: CmdLine@2
+ # inputs:
+  #  script: |
+   #   pytest -v -s
+  #displayName: 'pytest'
+  #continueOnError: true #отвечает за то что-бы код работал дальше вне зависимости от ошибки
+
 - task: CmdLine@2
   inputs:
-    script: |
-      pytest -v -s
-  displayName: 'pytest'
-  continueOnError: true #отвечает за то что-бы код работал дальше вне зависимости от ошибки
+    ${{ if contains(parameters.subscription, 'smoke') }}:
+      script: |
+        pytest -v -s -k "smoke"
+    ${{ if contains(parameters.subscription, 'ui') }}:
+      script: |
+        pytest -v -s -k "ui"
+    displayName: 'pytest'
+    continueOnError: true #отвечает за то что-бы код работал дальше вне зависимости от ошибки
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'result.xml'
+
+
