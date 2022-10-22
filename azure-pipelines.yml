@@ -22,6 +22,14 @@ schedules:
     include:
     - master
 
+- task: replacetokens@3
+  displayName: 'Replace tokens'
+  inputs:
+    targetFiles: |
+      **/passwords.json
+    tokenPrefix: '$('
+    tokenSuffix: ')'
+
 steps:
 - task: UsePythonVersion@0
   inputs:
